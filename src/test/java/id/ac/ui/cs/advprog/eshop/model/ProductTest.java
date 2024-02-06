@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 class ProductTest{
     Product product;
@@ -29,5 +30,12 @@ class ProductTest{
     @Test
     void testGetProductQuantity(){
         assertEquals(101, this.product.getProductQuantity());
+    }
+
+    @Test
+    void testInvalidQuantityInput(){
+        assertThrows(MethodArgumentNotValidException.class, () -> {
+            this.product.setProductQuantity(Integer.parseInt("yey"));
+        });
     }
 }

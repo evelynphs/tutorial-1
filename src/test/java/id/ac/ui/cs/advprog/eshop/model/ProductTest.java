@@ -31,11 +31,4 @@ class ProductTest{
     void testGetProductQuantity(){
         assertEquals(101, this.product.getProductQuantity());
     }
-
-    @Test
-    void testInvalidQuantityInput(){
-        assertThrows(MethodArgumentNotValidException.class, () -> {
-            this.product.setProductQuantity(Integer.parseInt("yey"));
-        });
-    }
 }

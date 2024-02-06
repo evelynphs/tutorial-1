@@ -13,16 +13,24 @@
 
     <table border="1" class="table table-striped table-responsive-md">
         <thead>
-        <tr>
+        <tr class="text-center">
             <th scope="col">Product Name</th>
             <th scope="col">Quantity</th>
+            <th scope="col" colspan="2">Options</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="product: ${products}">
+        <tr th:each="product: ${products}" class="text-center">
             <td th:text="${product.productName}"></td>
             <td th:text="${product.productQuantity}"></td>
             <td><a th:href="@{'/product/edit/' + ${product.productId}}"  class="btn btn-primary btn-sm mb-3">Edit</a></td>
+            <td>
+                <form th:action="@{'/product/delete/' + ${product.productId}}"
+                      th:object="${product}" th:method="DELETE"
+                      onsubmit="return confirm(`Are you sure you want to delete this product?`)">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

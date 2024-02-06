@@ -35,4 +35,9 @@ public class ProductRepository{
         product.setProductName(editedProduct.getProductName());
         product.setProductQuantity(editedProduct.getProductQuantity());
     }
+
+    public void delete(String productId){
+        Product deletedProduct = findById(productId);
+        productData.remove(deletedProduct);
+    }
 }

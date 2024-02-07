@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -99,7 +100,7 @@ class ProductRepositoryTest{
         editedProduct1.setProductName("Keeki Andagi");
         editedProduct1.setProductQuantity(890);
 
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(NoSuchElementException.class, () -> {
             productRepository.edit(editedProduct1);
         });
     }
@@ -119,11 +120,16 @@ class ProductRepositoryTest{
         productRepository.create(product2);
 
         productRepository.delete(product1.getProductId());
-        assertNull(productRepository.findById(product1.getProductId()));
+        assertThrows(NoSuchElementException.class, () -> {
+            productRepository.findById(product1.getProductId());
+        });
+
         assertEquals(product2, productRepository.findById(product2.getProductId()));
 
         productRepository.delete(product2.getProductId());
-        assertNull(productRepository.findById(product2.getProductId()));
+        assertThrows(NoSuchElementException.class, () -> {
+            productRepository.findById(product2.getProductId());
+        });
     }
 
     @Test
@@ -146,5 +152,20 @@ class ProductRepositoryTest{
         assertTrue(productIterator.hasNext());
         productRepository.delete(product2.getProductId());
         assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testDeleteTheSameProductTwice(){
+        Product product1 = new Product();
+        product1.setProductId("2b0c5fcf-1198-474c-bd1e-f0713131b326");
+        product1.setProductName("Sata Andagi");
+        product1.setProductQuantity(101);
+        productRepository.create(product1);
+
+        productRepository.delete(product1.getProductId());
+
+        assertThrows(NoSuchElementException.class, () -> {
+            productRepository.delete(product1.getProductId());
+        });
     }
 }

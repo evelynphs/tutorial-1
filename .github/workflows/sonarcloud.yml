@@ -28,10 +28,10 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-      - name: Generate Test Report
-        run: gradle test jacocoTestReport sonar
       - name: Set gradlew as executable
         run: chmod +x ./gradlew
+      - name: Generate Test Report
+        run: ./gradlew test jacocoTestReport
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

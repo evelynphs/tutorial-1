@@ -24,7 +24,14 @@ Namun, beberapa prinsip seperti secure coding dan error handling belum diterapka
 # Tutorial-2
 
 ### Reflection 1
-Code quality issue: *Unnecessary public modifier*. Terdapat method pada interface yang menggunakan modifier `public`. Penggunaan modifier ini dianggap _redundant_ karena secara interface memang bersifat public dan static secara implisit. Penggunaan modifier public tidak diperlukan untuk method interface sehingga saya mengubah modifier method tersebut menjadi default.
+Code quality issue: 
+- *Unnecessary public modifier*. Terdapat method pada interface yang menggunakan modifier `public`. Penggunaan modifier ini dianggap _redundant_ karena secara interface memang bersifat public dan static secara implisit. Penggunaan modifier public tidak diperlukan untuk method interface sehingga saya mengubah modifier method tersebut menjadi default.
+
+- *Only one method invocation is expected when testing runtime exceptions*
+  Terdapat method pada unit test yang memeriksa runtime exception menggunakan lambda. Dalam method tersebut, ada kemungkinan terjadinya dua runtime exception. Akan lebih baik apabila lambda tersebut hanya menerima satu kemungkinan exception. Maka, saya mengubah susunan kodenya agar method ini hanya menerima satu kemungkinan exception.
+
+- *Field dependency injection should be avoided*
+  Terdapat kode instansiasi objek dengan injeksi dependensi @Autowired. Injeksi ini tidak disarankan karena membuat objek yang diinstansiasi memiliki state yang tidak valid dan proses testing akan menjadi cenderung lebih sulit. Dependensi pada objek tersebut akan menjadi tidak eksplisit ketika di-inject. Maka, saya menghapus injeksi @Autowired pada instansiasi objek tersebut sehingga instansiasi objek dapat dilakukan secara langsung.
 
 ### Reflection 2
 Menurut saya, implementasi CI/CD pada github workflow di tutorial kali ini sudah memenuhi definisi Continuous Integration dan Continuous Deployment. Terdapat workflow pada `ci.yml` yang akan otomatis menjalankan unit tests menggunakan gradle sebagai tool setiap kali terdapat perubahan source code yang di-push ke repository. Workflow ini merupakan penerapan Continuous Integration. Selain itu, terdapat juga Dockerfile yang berisi workflow untuk secara otomatis melakukan deployment setiap kali terdapat push atau pull request pada branch utama. Workflow ini merupakan penerapan Continous Deployment. Terdapat pula workflow `pmd.yml` yang akan otomatis melakukan code scanning setiap kali ada event push di branch manapun. Otomatisasi dengan menggunakan script workflow ini merupakan implementasi CI/CD pada tutorial kali ini.  

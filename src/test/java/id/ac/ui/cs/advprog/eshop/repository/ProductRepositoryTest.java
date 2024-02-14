@@ -120,15 +120,18 @@ class ProductRepositoryTest{
         productRepository.create(product2);
 
         productRepository.delete(product1.getProductId());
+        String id1 = product1.getProductId();
+
         assertThrows(NoSuchElementException.class, () -> {
-            productRepository.findById(product1.getProductId());
+            productRepository.findById(id1);
         });
 
         assertEquals(product2, productRepository.findById(product2.getProductId()));
+        String id2 = product1.getProductId();
 
         productRepository.delete(product2.getProductId());
         assertThrows(NoSuchElementException.class, () -> {
-            productRepository.findById(product2.getProductId());
+            productRepository.findById(id2);
         });
     }
 
@@ -163,9 +166,10 @@ class ProductRepositoryTest{
         productRepository.create(product1);
 
         productRepository.delete(product1.getProductId());
+        String id = product1.getProductId();
 
         assertThrows(NoSuchElementException.class, () -> {
-            productRepository.delete(product1.getProductId());
+            productRepository.delete(id);
         });
     }
 }

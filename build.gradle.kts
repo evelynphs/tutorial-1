@@ -21,6 +21,8 @@ sonar {
         property("sonar.projectKey", "evelynphs_tutorial-1")
         property("sonar.organization", "evelynphs384")
         property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.sources", "src/main/java")
+        property("sonar.tests", "src/test")
     }
 }
 

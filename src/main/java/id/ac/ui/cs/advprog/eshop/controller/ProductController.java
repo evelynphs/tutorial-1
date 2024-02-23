@@ -67,7 +67,7 @@ class CarController extends ProductController{
     public String createCarPage(Model model){
         Car car = new Car();
         model.addAttribute("car", car);
-        return "createCar";
+        return "createcar";
     }
 
     @PostMapping("/createCar")
@@ -80,7 +80,26 @@ class CarController extends ProductController{
     public String carListPage(Model model){
         List<Car> allCars = carService.findAll();
         model.addAttribute("cars", allCars);
-        return "carList";
+        return "carlist";
+    }
+
+    @GetMapping("/editCar/{carId}")
+    public String editCarPage(@PathVariable String carId, Model model){
+        Car car = carService.findById(carId);
+        model.addAttribute("car", car);
+        return "editcar";
+    }
+
+    @PostMapping("/editCar")
+    public String editCarPost(@ModelAttribute Car car, Model model){
+        carService.update(car.getCarId(), car);
+        return "redirect:listCar";
+    }
+
+    @PostMapping("/deleteCar")
+    public String deleteCar(@RequestParam("carId") String carId){
+        carService.deleteCarById(carId);
+        return "redirect:listCar";
     }
 }
 

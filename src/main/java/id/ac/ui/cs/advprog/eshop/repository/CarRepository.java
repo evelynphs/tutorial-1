@@ -38,14 +38,12 @@ public class CarRepository{
     }
 
     public Car update(String id, Car updatedCar){
-        for(int i = 0; i<carData.size() ; i++){
-            Car car = carData.get(i);
-            if(updatedCar.getCarId().equals(id)){
-                car.setCarName(updatedCar.getCarName());
-                car.setCarColor(updatedCar.getCarColor());
-                car.setCarQuantity(updatedCar.getCarQuantity());
-                return car;
-            }
+        Car car = findById(id);
+        if(updatedCar.getCarId().equals(id)){
+            car.setCarName(updatedCar.getCarName());
+            car.setCarColor(updatedCar.getCarColor());
+            car.setCarQuantity(updatedCar.getCarQuantity());
+            return car;
         }
         return null;
     }

@@ -51,10 +51,14 @@ Menurut saya, implementasi CI/CD pada github workflow di tutorial kali ini sudah
 - ISP: prinsip ini menyatakan bahwa interface dibuat spesifik agar class yang ada hanya menerapkan interface yang diperlukan. Pada tutorial ini, interface service untuk car dan product dipisah dengan adanya `CarService.java` dan `ProductService.java`. Pemisahan ini dilakukan agar `CarServiceImpl` dapat meng-override method yang diperlukan/relevan saya, yaitu method pada `CarService`. `CarServiceImpl` tidak perlu mengimplementasikan `ProductService` yang tidak relevan dengan keperluannya terkait objek car.
 - DIP: prinsip ini menyatakan bahwa _high-level modules_ sebaiknya tidak bergantung secara langsung terhadap _low-level modules_, dan keduanya seharusnya bergantung pada abstraksi. Pada tutorial ini, prinsip ini diterapkan dengan membuat class `CarController` bergantung pada interface `CarService`, bukan bergantung pada class `CarServiceImpl` secara langsung.
 
+<br>
+
 2. Explain the advantages of applying SOLID principles to your project with examples.
 - Dengan SRP, kode akan lebih mudah untuk di-_maintain_ dan pencarian bug akan cenderung lebih mudah karena kode sudah terpisah menjadi bagian-bagian yang spesifik sesuai fungsinya masing-masing. Contohnya, pemisahan antara `CarController` dan `ProductController` akan memudahkan pencarian error apabila terdapat error pada salah satu controller.
 - Dengan ISP, implementasi suatu interface akan lebih efisien karena suatu class hanya perlu meng-override method dari interface yang relevan saja. Contohnya adalah pemisahan `CarService` dan `ProductService` agar `CarServiceImpl` dapat meng-override method yang diperlukan/relevan saya, yaitu method pada `CarService` dan tidak perlu mengimplementasikan `ProductService` yang tidak relevan dengan keperluannya terkait objek car.
 - Dengan DIP, kode akan menjadi lebih fleksibel karena abstraksi tidak bergantung pada detail. Contohnya, `CarController` bergantung pada `CarService` dan bukan bergantung pada `CarServiceImpl` secara langsung.
+
+<br>
 
 3. Explain the disadvantages of not applying SOLID principles to your project with examples.
 - Tanpa SRP, kode akan cenderung lebih susah untuk di-_maintain_, pencarian error atau bug akan cenderung lebih sulit juga karena penempatan kode yang kurang spesifik. Contohnya, jika `CarController` digabung dengan `ProductController`, pencarian error pada salah satunya akan lebih sulit.

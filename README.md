@@ -21,6 +21,9 @@ Namun, beberapa prinsip seperti secure coding dan error handling belum diterapka
 
 </details>
 
+<details>
+<summary>Tutorial 2</summary>
+
 # Tutorial-2
 
 ### Reflection 1
@@ -35,3 +38,29 @@ Code quality issue:
 
 ### Reflection 2
 Menurut saya, implementasi CI/CD pada github workflow di tutorial kali ini sudah memenuhi definisi Continuous Integration dan Continuous Deployment. Terdapat workflow pada `ci.yml` yang akan otomatis menjalankan unit tests menggunakan gradle sebagai tool setiap kali terdapat perubahan source code yang di-push ke repository. Workflow ini merupakan penerapan Continuous Integration. Selain itu, terdapat juga Dockerfile yang berisi workflow untuk secara otomatis melakukan deployment setiap kali terdapat push atau pull request pada branch utama. Workflow ini merupakan penerapan Continous Deployment. Terdapat pula workflow `pmd.yml` yang akan otomatis melakukan code scanning setiap kali ada event push di branch manapun. Otomatisasi dengan menggunakan script workflow ini merupakan implementasi CI/CD pada tutorial kali ini.  
+
+</details>
+
+# Tutorial-3
+
+1. Explain what principles you apply to your project!
+
+- SRP: prinsip ini menyatakan bahwa sebuah class hanya memiliki satu tanggungjawab. Pada tutorial ini, prinsip ini diterapkan dengan memisahkan `CarController` dan `ProductController` ke dalam dua file yang berbeda, kemudian menghilangkan inheritance dari `CarController` terhadap `ProductController`. Hal ini dilakukan agar setiap class fokus pada tanggungjawabnya masing-masing.
+- OCP: prinsip ini menyatakan bahwa penambahan fitur atau behavior suatu modul dapat dilakukan tanpa harus memodifikasi kode yang sudah ada. Pada tutorial ini, apabila kita ingin menambahkan tipe model baru seperti misalnya `Motorcycle`, kita dapat menambahkan controller, repository, dan service baru untuk `Motorcycle` tanpa harus mengubah kode untuk `Car` dan `Product` yang sudah ada.
+- LSP: prinsip ini menyatakan bahwa sebuah objek dari suatu subclass harus bisa menerapkan fungsionalitas yang sama dengan superclass nya. Pada tutorial kali ini, saya tidak menerapkan inheritance sehingga prinsip ini tidak perlu digunakan.
+- ISP: prinsip ini menyatakan bahwa interface dibuat spesifik agar class yang ada hanya menerapkan interface yang diperlukan. Pada tutorial ini, interface service untuk car dan product dipisah dengan adanya `CarService.java` dan `ProductService.java`. Pemisahan ini dilakukan agar `CarServiceImpl` dapat meng-override method yang diperlukan/relevan saya, yaitu method pada `CarService`. `CarServiceImpl` tidak perlu mengimplementasikan `ProductService` yang tidak relevan dengan keperluannya terkait objek car.
+- DIP: prinsip ini menyatakan bahwa _high-level modules_ sebaiknya tidak bergantung secara langsung terhadap _low-level modules_, dan keduanya seharusnya bergantung pada abstraksi. Pada tutorial ini, prinsip ini diterapkan dengan membuat class `CarController` bergantung pada interface `CarService`, bukan bergantung pada class `CarServiceImpl` secara langsung.
+
+<br>
+
+2. Explain the advantages of applying SOLID principles to your project with examples.
+- Dengan SRP, kode akan lebih mudah untuk di-_maintain_ dan pencarian bug akan cenderung lebih mudah karena kode sudah terpisah menjadi bagian-bagian yang spesifik sesuai fungsinya masing-masing. Contohnya, pemisahan antara `CarController` dan `ProductController` akan memudahkan pencarian error apabila terdapat error pada salah satu controller.
+- Dengan ISP, implementasi suatu interface akan lebih efisien karena suatu class hanya perlu meng-override method dari interface yang relevan saja. Contohnya adalah pemisahan `CarService` dan `ProductService` agar `CarServiceImpl` dapat meng-override method yang diperlukan/relevan saya, yaitu method pada `CarService` dan tidak perlu mengimplementasikan `ProductService` yang tidak relevan dengan keperluannya terkait objek car.
+- Dengan DIP, kode akan menjadi lebih fleksibel karena abstraksi tidak bergantung pada detail. Contohnya, `CarController` bergantung pada `CarService` dan bukan bergantung pada `CarServiceImpl` secara langsung.
+
+<br>
+
+3. Explain the disadvantages of not applying SOLID principles to your project with examples.
+- Tanpa SRP, kode akan cenderung lebih susah untuk di-_maintain_, pencarian error atau bug akan cenderung lebih sulit juga karena penempatan kode yang kurang spesifik. Contohnya, jika `CarController` digabung dengan `ProductController`, pencarian error pada salah satunya akan lebih sulit.
+- Tanpa ISP, ada kemungkinan bahwa suatu class perlu meng-override method yang tidak relevan dari interface yang di-implement. Contohnya, jika `CarService` digabung dengan `ProductService`, maka `CarServiceImpl` juga perlu meng-override method-method pada `ProductService` yang tidak relevan dengan car.
+- Tanpa DIP, suatu class akan terlalu bergantung pada implementasi konkrit dari class lainnya sehingga kode kurang fleksibel. Contohnya, jika `CarController` bergantung langsung pada `CarServiceImpl` dan bukan `CarService`, maka modifikasi atau perbaikan kode pada `CarController` dan `CarServiceImpl` menjadi kurang efisien.

@@ -1,5 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -22,8 +25,8 @@ public class Payment{
         boolean valid = validatePayment();
 
         if(valid){
-            this.setStatus("SUCCESS");
-            this.order.setStatus("SUCCESS");
+            this.setStatus(PaymentStatus.SUCCESS.getValue());
+            this.order.setStatus(OrderStatus.SUCCESS.getValue());
         }
         else{
             this.setStatus("REJECTED");
@@ -40,10 +43,9 @@ public class Payment{
     }
 
     public void setStatus(String status){
-        if(status.equals("SUCCESS") || status.equals("REJECTED")){
+        if(PaymentStatus.contains(status)){
             this.status = status;
-        }
-        else{
+        } else{
             throw new IllegalArgumentException();
         }
     }
@@ -60,7 +62,7 @@ public class Payment{
         }
 
         // validate for voucher method
-        if(method.equals("VOUCHER")){
+        if(method.equals(PaymentMethod.VOUCHER.getValue())){
             String voucherCode = paymentData.get("voucherCode");
 
             if(voucherCode.length() == 16 && voucherCode.startsWith("ESHOP")){
@@ -80,7 +82,7 @@ public class Payment{
         }
 
         // validate for bank transfer method
-        else if(method.equals("BANK_TRANSFER")){
+        else if(method.equals(PaymentMethod.BANK_TRANSFER.getValue())){
             if(paymentData.get("bankName").isEmpty() ||
                     paymentData.get("referenceCode").isEmpty() ||
                     paymentData.get("bankName") == null ||

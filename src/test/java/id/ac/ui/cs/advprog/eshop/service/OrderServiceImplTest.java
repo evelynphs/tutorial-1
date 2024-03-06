@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class OrderServiceTest{
+class OrderServiceImplTest{
     @InjectMocks
     OrderServiceImpl orderService;
     @Mock
@@ -47,7 +47,7 @@ class OrderServiceTest{
         Order order = orders.get(1);
         doReturn(order).when(orderRepository).save(order);
 
-        Order result = orderService.createorder(order);
+        Order result = orderService.createOrder(order);
         verify(orderRepository, times(1)).save(order);
         assertEquals(order.getId(), result.getId());
     }
@@ -71,7 +71,7 @@ class OrderServiceTest{
         Order result = orderService.updateStatus(order.getId(), OrderStatus.SUCCESS.getValue());
 
         assertEquals(order.getId(), result.getId());
-        assertEquals(OrderStatus.SUCCESS.getValue(), results.getStatus);
+        assertEquals(OrderStatus.SUCCESS.getValue(), result.getStatus());
         verify(orderRepository, times(1)).save(any(Order.class));
     }
 

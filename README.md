@@ -41,6 +41,9 @@ Menurut saya, implementasi CI/CD pada github workflow di tutorial kali ini sudah
 
 </details>
 
+<details>
+<summary>Tutorial 3</summary>
+
 # Tutorial-3
 
 1. Explain what principles you apply to your project!
@@ -64,3 +67,23 @@ Menurut saya, implementasi CI/CD pada github workflow di tutorial kali ini sudah
 - Tanpa SRP, kode akan cenderung lebih susah untuk di-_maintain_, pencarian error atau bug akan cenderung lebih sulit juga karena penempatan kode yang kurang spesifik. Contohnya, jika `CarController` digabung dengan `ProductController`, pencarian error pada salah satunya akan lebih sulit.
 - Tanpa ISP, ada kemungkinan bahwa suatu class perlu meng-override method yang tidak relevan dari interface yang di-implement. Contohnya, jika `CarService` digabung dengan `ProductService`, maka `CarServiceImpl` juga perlu meng-override method-method pada `ProductService` yang tidak relevan dengan car.
 - Tanpa DIP, suatu class akan terlalu bergantung pada implementasi konkrit dari class lainnya sehingga kode kurang fleksibel. Contohnya, jika `CarController` bergantung langsung pada `CarServiceImpl` dan bukan `CarService`, maka modifikasi atau perbaikan kode pada `CarController` dan `CarServiceImpl` menjadi kurang efisien.
+
+</details>
+
+# Tutorial-4
+
+1. Menurut saya, metode TDD ini cukup berguna. Namun, saya sendiri belum terbiasa untuk bekerja dengan metode ini. Saya kadang merasa bingung ketika hendak membuat suatu test karena susunan kode yang ingin di-test itu sendiri belum dibuat. Untuk saat ini, saya mungkin lebih memilih untuk menyusun kode tanpa TDD, yaitu menyusun kode sebelum menyusun test untuk kode itu sendiri. Tetapi untuk ke depannya, mungkin saya akan coba explore lebih terkait TDD dan mencoba membiasakan diri menggunakannya supaya alur pengerjaan kode saya lebih efisien.
+
+<br>
+
+2. Ya, test yang dibuat pada bagian tutorial modul ini (modul 4) sudah mengikuti prinsip F.I.R.S.T. Namun, pada excercise modul sebelumnya (modul 1-3), saya belum sepenuhnya menerapkan prinsip F.I.R.S.T pada unit test yang saya buat, terutama untuk prinsip "Through/Timely". Sebagian besar unit test yang saya buat cenderung mengcover happy paths dan kurang memperhatikan unhappy paths. Untuk ke depannya, saya sebaiknya lebih memperhatikan kemungkinan unhappy paths yang terjadi pada suatu kode dan mengcovernya pada unit tests sehingga unit tests tersebut dapat berguna untuk mengcover sebanyak mungkin paths.
+
+
+
+
+
+
+
+
+
+

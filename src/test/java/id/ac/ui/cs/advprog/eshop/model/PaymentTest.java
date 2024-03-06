@@ -39,7 +39,7 @@ class PaymentTest{
     void testCreatePaymentSuccess(){
         Map<String, String> paymentData = new HashMap<String, String>();
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
-        Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders);
+        Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders.getFirst());
         assertEquals("SUCCESS", payment.getStatus());
     }
 
@@ -49,7 +49,7 @@ class PaymentTest{
         Map<String, String> paymentData = new HashMap<String, String>();
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders);
+            Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders.getFirst());
         });
     }
 
@@ -57,7 +57,7 @@ class PaymentTest{
     void testCreatePaymentEmptyPaymentData(){
         Map<String, String> paymentData = new HashMap<String, String>();
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders);
+            Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders.getFirst());
         });
     }
 
@@ -66,21 +66,24 @@ class PaymentTest{
         Map<String, String> paymentData = new HashMap<String, String>();
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "HAHAHEHE", paymentData, this.orders);
+            Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "HAHAHEHE", paymentData, this.orders.getFirst());
         });
     }
 
     // voucher related payment test
     @Test
     void testPaymentVoucherSuccess(){
-        ;
+        Map<String, String> paymentData = new HashMap<String, String>();
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
+        Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders.getFirst());
+        assertEquals("SUCCESS", payment.getStatus());
     }
 
     @Test
     void testPaymentInvalidVoucherCodeNot16Char(){
         Map<String, String> paymentData = new HashMap<String, String>();
         paymentData.put("voucherCode", "ESHOP123");
-        Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders);
+        Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders.getFirst());
         assertEquals("REJECTED", payment.getStatus());
     }
 
@@ -88,7 +91,7 @@ class PaymentTest{
     void testPaymentInvalidVoucherNotStartedWithEshop(){
         Map<String, String> paymentData = new HashMap<String, String>();
         paymentData.put("voucherCode", "ESHHH1234ABC5678");
-        Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders);
+        Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders.getFirst());
         assertEquals("REJECTED", payment.getStatus());
     }
 
@@ -97,7 +100,7 @@ class PaymentTest{
         Map<String, String> paymentData = new HashMap<String, String>();
         paymentData.put("bankName", "");
         paymentData.put("referenceCode", "haha-hihihi-08-90");
-        Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "BANK_TRANSFER", paymentData, this.orders);
+        Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "BANK_TRANSFER", paymentData, this.orders.getFirst());
         assertEquals("REJECTED", payment.getStatus());
     }
 
@@ -106,7 +109,7 @@ class PaymentTest{
         Map<String, String> paymentData = new HashMap<String, String>();
         paymentData.put("bankName", "Bank Central Ahaha");
         paymentData.put("referenceCode", "");
-        Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "BANK_TRANSFER", paymentData, this.orders);
+        Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "BANK_TRANSFER", paymentData, this.orders.getFirst());
         assertEquals("REJECTED", payment.getStatus());
     }
 }

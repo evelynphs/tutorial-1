@@ -45,11 +45,10 @@ class PaymentTest{
 
     @Test
     void testCreatePaymentEmptyOrders(){
-        this.orders.clear();
         Map<String, String> paymentData = new HashMap<String, String>();
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, this.orders.getFirst());
+            Payment payment = new Payment("ba7f2543-508f-44fb-be3b-2c770d24fd3d", "VOUCHER", paymentData, null);
         });
     }
 

@@ -38,7 +38,7 @@ class OrderRepositoryTest{
     @Test
     void testSaveCreate(){
         Order order = orders.get(1);
-        Order result = orderRepository.save.(order);
+        Order result = orderRepository.save(order);
 
         Order findResult = orderRepository.findById(orders.get(1).getId());
         assertEquals(order.getId(), result.getId());
@@ -52,7 +52,7 @@ class OrderRepositoryTest{
     void testSaveUpdate(){
         Order order = orders.get(1);
         orderRepository.save(order);
-        Order newOrder = new Order(order.getId(), order.getProducts(), order, order.getOrderTime(), order.getAuthor(), OrderStatus.SUCCESS.getValue());
+        Order newOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(), order.getAuthor(), OrderStatus.SUCCESS.getValue());
         Order result = orderRepository.save(newOrder);
 
         Order findResult = orderRepository.findById(orders.get(1).getId());
@@ -66,7 +66,7 @@ class OrderRepositoryTest{
     @Test
     void testFindByIdIfIdFound(){
         for(Order order : orders){
-            orderRepository.save.(order);
+            orderRepository.save(order);
         }
 
         Order findResult = orderRepository.findById(orders.get(1).getId());
@@ -92,13 +92,13 @@ class OrderRepositoryTest{
             orderRepository.save(order);
         }
 
-        List<Order> orderList = orderRepository.findAllbyAuthor(orders.get(1).getAuthor());
+        List<Order> orderList = orderRepository.findAllByAuthor(orders.get(1).getAuthor());
         assertEquals(2, orderList.size());
     }
 
     @Test
     void testFindAllByAuthorIfAllLowercase(){
-        orderRepository.save(orders.get(1);
+        orderRepository.save(orders.get(1));
 
         List<Order> orderList = orderRepository.findAllByAuthor(orders.get(1).getAuthor().toLowerCase());
         assertTrue(orderList.isEmpty());
